@@ -1,74 +1,63 @@
 const express = require("express");
+const axios = require("axios");
+
 const app = express();
+const PORT = 3000;
 
-const users = [
-  { id: 1, name: "User 1" },
-  { id: 2, name: "User 2" },
-  { id: 3, name: "User 3" },
-  { id: 4, name: "User 4" },
-  { id: 5, name: "User 5" },
-  { id: 6, name: "User 6" },
-  { id: 7, name: "User 7" },
-  { id: 8, name: "User 8" },
-  { id: 9, name: "User 9" },
-  { id: 10, name: "User 10" },
-  { id: 11, name: "User 11" },
-  { id: 12, name: "User 12" },
-  { id: 13, name: "User 13" },
-];
-
-const posts = [
-  { id: 1, name: "Posts 1" },
-  { id: 2, name: "Posts 2" },
-  { id: 3, name: "Posts 3" },
-  { id: 4, name: "Posts 4" },
-  { id: 5, name: "Posts 5" },
-  { id: 6, name: "Posts 6" },
-  { id: 7, name: "Posts 7" },
-  { id: 8, name: "Posts 8" },
-  { id: 9, name: "Posts 9" },
-  { id: 10, name: "Posts 10" },
-  { id: 11, name: "Posts 11" },
-  { id: 12, name: "Posts 12" },
-  { id: 13, name: "Posts 13" },
-];
-
-app.get("/posts", paginatedResults(posts), (req, res) => {
-  res.json(res.paginatedResults);
-});
-
-app.get("/users", paginatedResults(users), (req, res) => {
-  res.json(res.paginatedResults);
-});
-
-function paginatedResults(model) {
-  return (req, res, next) => {
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit);
-
-    const startIndex = (page - 1) * limit;
-    const endIndex = page * limit;
-
-    const results = {};
-
-    if (endIndex < model.length) {
-      results.next = {
-        page: page + 1,
-        limit: limit,
-      };
-    }
-
-    if (startIndex > 0) {
-      results.previous = {
-        page: page - 1,
-        limit: limit,
-      };
-    }
-
-    results.results = model.slice(startIndex, endIndex);
-    res.paginatedResults = results;
-    next();
-  };
+// Define a function to fetch images from Pixabay API with pagination and sorting
+async function fetchPixabayImages(page = 1, perPage = 10, orderBy = "id") {
+  const url = `https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&page=${page}&per_page=${perPage}&order=${orderBy}`;
+  const response = await axios.get(url);
+  return response.data;
 }
 
-app.listen(3000);
+// Route to get paginated and sorted images
+app.get("/images", async (req, res) => {
+  try {
+    const { page, per_page, order_by } = req.query;
+    const pageNumber = parseInt(page) || 1;
+    const perPage = parseInt(per_page) || 10;
+    const orderBy = order_by || "id";
+
+    const images = await fetchPixabayImages(pageNumber, perPage, orderBy);
+    res.json(images);
+  } catch (error) {
+    console.error("Error fetching images:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Route to get images sorted by ID
+app.get("/images/sortById", async (req, res) => {
+  try {
+    const { page, per_page } = req.query;
+    const pageNumber = parseInt(page) || 1;
+    const perPage = parseInt(per_page) || 10;
+
+    const images = await fetchPixabayImages(pageNumber, perPage, "id");
+    res.json(images);
+  } catch (error) {
+    console.error("Error fetching images:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Route to get images sorted by date
+app.get("/images/sortByDate", async (req, res) => {
+  try {
+    const { page, per_page } = req.query;
+    const pageNumber = parseInt(page) || 1;
+    const perPage = parseInt(per_page) || 10;
+
+    const images = await fetchPixabayImages(pageNumber, perPage, "date");
+    res.json(images);
+  } catch (error) {
+    console.error("Error fetching images:", error.message);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// Start the server
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});

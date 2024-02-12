@@ -1,1 +1,1 @@
-GET http://localhost:3000/posts?page=1&limit=10
+GET https://pixabay.com/api/?key=25540812-faf2b76d586c1787d2dd02736&q=sport
