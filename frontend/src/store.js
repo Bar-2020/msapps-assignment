@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import countSlice from "./countSlice";
+import imagesSlice from "./imagesSlice";
 
 export const store = configureStore({
   reducer: {
-    count: countSlice,
+    images: imagesSlice,
   },
 });
