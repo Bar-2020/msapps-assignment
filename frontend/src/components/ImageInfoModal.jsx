@@ -24,7 +24,7 @@ function ImageInfoModal() {
         <p>Downloads: {selectedImage?.downloads}</p>
         <p>Collections: {selectedImage?.collections}</p>
       </div>
-      <button>Download</button>
+      {/* <button>Download</button> */}
     </Modal>
   );
 }

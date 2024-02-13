@@ -6,13 +6,16 @@ import { setImages, setStatus } from "./imagesSlice";
 import ImagesList from "./components/ImagesList";
 import PagesControl from "./components/PagesControl";
 import ImageInfoModal from "./components/ImageInfoModal";
-import CategorySelector from "./components/CategorySelector";
+// import CategorySelector from "./components/CategorySelector";
+import Loader from "./components/Loader";
+import CategoryModal from "./components/CategoryModal";
 
 const BackendUrl = "http://localhost:3000";
 
 function App() {
   const page = useSelector((state) => state.images.page);
   const category = useSelector((state) => state.images.category);
+  const status = useSelector((state) => state.images.status);
   const selectedImage = useSelector((state) => state.images.selectedImage);
   const dispatch = useDispatch();
 
@@ -37,13 +40,27 @@ function App() {
     <div className="flex flex-col">
       <div className="flex justify-around items-center">
         <h1 className="text-3xl font-bold mb-4 text-center">Image Library</h1>
-        <CategorySelector />
+        <button
+          onClick={() => dispatch(setStatus("category"))}
+          className="bg-blue-500 hover:bg-blue-600 rounded-md p-2"
+        >
+          Pick category
+        </button>
       </div>
-      <ImagesList />
-      <PagesControl />
+      {status === "loading" ? (
+        <>
+          <Loader />
+        </>
+      ) : (
+        <>
+          <ImagesList />
+          <PagesControl />
+        </>
+      )}
 
       <AnimatePresence initial={false} mode="wait">
         {selectedImage && <ImageInfoModal />}
+        {status === "category" && <CategoryModal />}
       </AnimatePresence>
     </div>
   );

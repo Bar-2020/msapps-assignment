@@ -22,7 +22,7 @@ function Modal({ handleClose, children }) {
     <Backdrop onClick={handleClose}>
       <motion.div
         onClick={(e) => e.stopPropagation()}
-        className="modal bg-blue-200"
+        className="modal bg-white rounded-lg shadow-lg p-6"
         variants={dropIn}
         initial="hidden"
         animate="visible"
@@ -30,9 +30,22 @@ function Modal({ handleClose, children }) {
       >
         <button
           onClick={handleClose}
-          className="bg-blue-500 hover:bg-blue-600 disabled:bg-blue-100 text-white font-bold rounded p-1"
+          className="absolute top-2 right-2 bg-transparent border-none text-gray-500 hover:text-gray-700 focus:outline-none"
         >
-          Close
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
         </button>
         {children}
       </motion.div>

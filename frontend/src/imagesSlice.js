@@ -14,7 +14,7 @@ export const countSlice = createSlice({
   initialState,
   reducers: {
     setCategory: (state, action) => {
-      return { ...state, category: action.payload };
+      return { ...state, category: action.payload, page: 1 };
     },
     setStatus: (state, action) => {
       return { ...state, status: action.payload };
