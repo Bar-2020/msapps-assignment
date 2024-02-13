@@ -6,7 +6,6 @@ import { setImages, setStatus } from "./imagesSlice";
 import ImagesList from "./components/ImagesList";
 import PagesControl from "./components/PagesControl";
 import ImageInfoModal from "./components/ImageInfoModal";
-// import CategorySelector from "./components/CategorySelector";
 import Loader from "./components/Loader";
 import CategoryModal from "./components/CategoryModal";
 
@@ -34,7 +33,7 @@ function App() {
     }
 
     fetchImages();
-  }, [page, category]);
+  }, [page, category, dispatch]);
 
   return (
     <div className="flex flex-col">

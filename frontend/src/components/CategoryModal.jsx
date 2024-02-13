@@ -12,7 +12,11 @@ function CategoryModal() {
   }
 
   return (
-    <Modal modalOpen={status === "category"} handleClose={handleClose}>
+    <Modal
+      modalOpen={status === "category"}
+      handleClose={handleClose}
+      className="p-12"
+    >
       <CategorySelector />
     </Modal>
   );

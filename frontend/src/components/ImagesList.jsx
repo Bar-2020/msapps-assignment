@@ -8,7 +8,7 @@ function ImagesList() {
   const images = useSelector((state) => state.images.images);
 
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
+    <div className="flex flex-wrap grid-flow-row gap-3 justify-center">
       {images.map((img) => (
         <ImageCard
           img={img}

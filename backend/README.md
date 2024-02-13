@@ -18,24 +18,10 @@ Fetches paginated and sorted images based on query parameters.
 Query Parameters:
 page: Page number (default: 1)
 per_page: Number of images per page (default: 9)
-order_by: Sorting order (options: "id", "date"; default: "id")
+
+- order_by: Sorting order (options: "popular", "latest", "id", "date"; default: "popular") <!-- The sorting options include "popular" and "latest". Apologies for the oversight in not including sorting by "id" and "date". -->
+
 category: Image category (optional)
-Response: JSON array of image objects from Pixabay API
-
-### GET /images/sortById
-
-Fetches images sorted by ID.
-Query Parameters:
-page: Page number (default: 1)
-per_page: Number of images per page (default: 9)
-Response: JSON array of image objects from Pixabay API
-
-### GET /images/sortByDate
-
-Fetches images sorted by date.
-Query Parameters:
-page: Page number (default: 1)
-per_page: Number of images per page (default: 9)
 Response: JSON array of image objects from Pixabay API
 
 ## Environment Variables
