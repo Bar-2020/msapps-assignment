@@ -5,7 +5,7 @@ function ImageCard({ img, clickEvent }) {
       <img
         src={img.largeImageURL}
         alt={img.tags}
-        className="rounded-lg shadow-md cursor-pointer"
+        className="rounded-lg shadow-md cursor-pointer max-h-80"
         onClick={() => clickEvent()}
       />
     </div>

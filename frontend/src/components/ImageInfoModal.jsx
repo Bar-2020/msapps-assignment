@@ -40,7 +40,7 @@ function ImageInfoModal() {
       >
         <img
           src={selectedImage?.largeImageURL}
-          className="object-cover rounded-md size-full"
+          className="object-cover rounded-md max-h-96"
           alt={selectedImage?.tags}
         />
         {infoVisible && ( // Show info only if infoVisible is true
